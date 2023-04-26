@@ -56,7 +56,7 @@ def main():
         for i, url in enumerate(urls):
             brand_name = brands[i] if i < len(brands) else ""
             table_data.append((brand_name, url))
-        st.table(table_data, use_column_width=True, link_column=1)
+        st.table(table_data, link_column=1)
 
 
 if __name__ == '__main__':

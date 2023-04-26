@@ -12,6 +12,8 @@ def check_keywords_in_content(content, keywords):
 
 # Streamlit web app
 def main():
+    st.set_page_config(page_title="DPI-Brands", page_icon=":bar_chart:")
+
     st.title("Market Research Web App")
 
     # Input parameters
@@ -44,7 +46,7 @@ def main():
                 search_query += f" site:{website_name}"
             search_query = search_query.replace(" ", "%20")
             if brand:
-                search_query = f"{search_query} {brand}"
+                search_query = f'{search_query} "{brand}"'
             url = f"https://www.google.com/search?q={search_query}"
             urls.append(url)
 
@@ -54,7 +56,8 @@ def main():
         for i, url in enumerate(urls):
             brand_name = brands[i] if i < len(brands) else ""
             table_data.append((brand_name, url))
-        st.table(table_data)
+        st.table(table_data, headers=("Brand", "Google Search URL"), value=(None, urls), format="{: <30}  {}", link=("","Google Search URL"))
+
 
 if __name__ == '__main__':
     main()

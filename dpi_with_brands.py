@@ -22,7 +22,7 @@ def main():
     keywords = st.text_area("Enter Associated Keywords (comma separated)")
     keywords = [kw.strip() for kw in keywords.split(',') if kw.strip()]
     website_name = st.text_input("Search in a specific website Name (Optional)")
-    brands = st.text_area("Enter Brand Names (comma separated)")
+    brands = st.text_area("Enter Brand Names (comma separated) - Optional")
     brands = [brand.strip() for brand in brands.split(',') if brand.strip()]
 
     # Get current year
@@ -56,7 +56,7 @@ def main():
         for i, url in enumerate(urls):
             brand_name = brands[i] if i < len(brands) else ""
             table_data.append((brand_name, url))
-        st.table(table_data, headers=("Brand", "Google Search URL"), value=(None, urls), format="{: <30}  {}", link=("","Google Search URL"))
+        st.table(table_data, headers=["Brand", "Google Search URL"], value=(None, urls), format="{: <30}  {}", link=("","Google Search URL"))
 
 
 if __name__ == '__main__':

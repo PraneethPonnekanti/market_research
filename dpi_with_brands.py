@@ -72,7 +72,7 @@ def main():
             df = pd.DataFrame(table_data, columns=["Brand Name", "Google Search URL"])
             st.table(df)
             #st.dataframe(table_data, columns=["Brand Name", "Google Search URL"], value=[f"[{url}]({url})" for _, url in table_data])
-
+'''
             # Get content for each URL
             for url in urls:
                 st.markdown(f"#### Generated Google Search URL: [{url}]({url})")
@@ -85,6 +85,7 @@ def main():
                     st.code(content, language='html')
                 else:
                     st.write("No content captured for the given keywords")
+'''
 
 if __name__ == '__main__':
     main()

@@ -2,6 +2,7 @@ import requests
 import streamlit as st
 import datetime
 import urllib.parse
+import pandas as pd
 
 # Function to check if keywords are found in content
 def check_keywords_in_content(content, keywords):
@@ -68,8 +69,9 @@ def main():
             for i, url in enumerate(urls):
                 brand_name = brands[i] if i < len(brands) else ""
                 table_data.append((brand_name, url))
-            st.dataframe(table_data, columns=["Brand Name", "Google Search URL"], 
-                     value=[f"[{url}]({url})" for _, url in table_data])
+                df = pd.DataFrame(table_data, columns=["Brand Name", "Google Search URL"])
+                st.table(df)
+            #st.dataframe(table_data, columns=["Brand Name", "Google Search URL"], value=[f"[{url}]({url})" for _, url in table_data])
 
             # Get content for each URL
             for url in urls:

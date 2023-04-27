@@ -68,8 +68,7 @@ def main():
             table_data = []
             for i, url in enumerate(urls):
                 brand_name = brands[i] if i < len(brands) else ""
-                #table_data.append((brand_name, url))
-                table_data.append((brand_name, '<a href="' + url + '">' + url + '</a>'))
+                table_data.append((brand_name, url))
             df = pd.DataFrame(table_data, columns=["Brand Name", "Google Search URL"])
             st.table(df)
             #st.dataframe(table_data, columns=["Brand Name", "Google Search URL"], value=[f"[{url}]({url})" for _, url in table_data])

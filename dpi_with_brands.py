@@ -12,7 +12,7 @@ def check_keywords_in_content(content, keywords):
 
 # Streamlit web app
 def main():
-    st.set_page_config(page_title="DPI-Brands", page_icon=":magnifier:")
+    st.set_page_config(page_title="DPI-Brands", page_icon=":rocket:")
 
     st.title("Market Research Web App - Google Search URL Generator")
     st.write("Company Brand Names can be inputted as comma seperated values. These- are optional. ")

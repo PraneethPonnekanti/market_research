@@ -12,7 +12,7 @@ def check_keywords_in_content(content, keywords):
 
 # Streamlit web app
 def main():
-    st.set_page_config(page_title="DPI-Brands", page_icon=":smile:")
+    st.set_page_config(page_title="DPI-Brands", page_icon=":magnifier:")
 
     st.title("Market Research Web App - Google Search URL Generator")
     st.write("Company Brand Names can be inputted as comma seperated values. These- are optional. ")
@@ -68,7 +68,7 @@ def main():
             for i, url in enumerate(urls):
                 brand_name = brands[i] if i < len(brands) else ""
                 table_data.append((brand_name, url))
-            st.table(table_data, columns=["Brand Name", "Google Search URL"], 
+            st.dataframe(table_data, columns=["Brand Name", "Google Search URL"], 
                      value=[f"[{url}]({url})" for _, url in table_data])
 
             # Get content for each URL

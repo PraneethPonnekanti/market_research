@@ -34,44 +34,54 @@ def main():
     # Calculate past year
     past_year = current_year - 1
 
-    # Generate URLs for Google search
-    if not brands and st.button("Generate URLs"):
-        search_query = f'{search_term} {" ".join(keywords)} after:{past_year}-01-01 before:{current_date}'
-        if company_name:
-            search_query = f'intext:"{company_name}" ' + search_query
-        if website_name:
-            search_query += f" site:{website_name}"
-        search_query = search_query.replace(" ", "%20")
-        url = f"https://www.google.com/search?q={search_query}"
-        st.markdown(f"### Generated Google Search URL: [{url}]({url})")
-        
-    # Generate table for Google search URLs
-    elif brands and st.button("Generate Table"):
+    # Perform Google search
+    if st.button("Generate Search URLs"):
         urls = []
-        for brand in brands:
-            # Construct search query with time frame
+        if not brands:
             search_query = f'{search_term} {" ".join(keywords)} after:{past_year}-01-01 before:{current_date}'
             if company_name:
                 search_query = f'intext:"{company_name}" ' + search_query
             if website_name:
                 search_query += f" site:{website_name}"
             search_query = search_query.replace(" ", "%20")
-            if brand:
-                search_query = f'{search_query} "{brand}"'
             url = f"https://www.google.com/search?q={search_query}"
             urls.append(url)
+            st.markdown(f"### Generated Google Search URL: [{url}]({url})")
+        else:
+            for brand in brands:
+                # Construct search query with time frame
+                search_query = f'{search_term} {" ".join(keywords)} after:{past_year}-01-01 before:{current_date}'
+                if company_name:
+                    search_query = f'intext:"{company_name}" ' + search_query
+                if website_name:
+                    search_query += f" site:{website_name}"
+                search_query = search_query.replace(" ", "%20")
+                if brand:
+                    search_query = f'{search_query} "{brand}"'
+                url = f"https://www.google.com/search?q={search_query}"
+                urls.append(url)
 
-        # Display URLs in table
-        st.subheader("Generated Google Search URLs for Brands:")
-        table_data = []
-        for i, url in enumerate(urls):
-            brand_name = brands[i] if i < len(brands) else ""
-            table_data.append((brand_name, url))
-        st.table(table_data)
+            # Display URLs in table
+            st.subheader("Generated Google Search URLs for Brands:")
+            table_data = []
+            for i, url in enumerate(urls):
+                brand_name = brands[i] if i < len(brands) else ""
+                table_data.append((brand_name, url))
+            st.table(table_data, columns=["Brand Name", "Google Search URL"], 
+                     value=[f"[{url}]({url})" for _, url in table_data])
 
-    # Get content for each URL
-    else:
-        st.write("Please provide search parameters and select a button to generate URLs or table.")
-        
+            # Get content for each URL
+            for url in urls:
+                st.markdown(f"### Generated Google Search URL: [{url}]({url})")
+                response = requests.get(url)
+                content = response.text
+
+                # Check if content contains keywords
+                if check_keywords_in_content(content, keywords):
+                    st.subheader("Captured Content:")
+                    st.code(content, language='html')
+                else:
+                    st.write("No content captured for the given keywords")
+
 if __name__ == '__main__':
     main()

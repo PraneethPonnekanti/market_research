@@ -12,9 +12,10 @@ def check_keywords_in_content(content, keywords):
 
 # Streamlit web app
 def main():
-    st.set_page_config(page_title="DPI-Brands", page_icon=":bar_chart:")
+    st.set_page_config(page_title="DPI-Brands", page_icon=":smile:")
 
-    st.title("Market Research Web App")
+    st.title("Market Research Web App - Google Search URL Generator")
+    st.write("Company Brand Names can be inputted as comma seperated values. These- are optional. ")
 
     # Input parameters
     company_name = st.text_input("Enter Company Name")
@@ -35,7 +36,7 @@ def main():
     past_year = current_year - 1
 
     # Perform Google search
-    if st.button("Generate Search URLs"):
+    if st.button("Generate Search URL"):
         urls = []
         if not brands:
             search_query = f'{search_term} {" ".join(keywords)} after:{past_year}-01-01 before:{current_date}'
@@ -72,7 +73,7 @@ def main():
 
             # Get content for each URL
             for url in urls:
-                st.markdown(f"### Generated Google Search URL: [{url}]({url})")
+                st.markdown(f"#### Generated Google Search URL: [{url}]({url})")
                 response = requests.get(url)
                 content = response.text
 
